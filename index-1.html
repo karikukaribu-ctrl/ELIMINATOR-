@@ -3,114 +3,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Eliminator</title>
+  <title>ELIMINATOR</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Zen+Maru+Gothic:wght@400;500;700&family=Yomogi&family=Kiwi+Maru:wght@400;500;700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Yomogi&family=Zen+Maru+Gothic:wght@400;500;700&family=Zen+Kurenaido&family=Kiwi+Maru:wght@400;500;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.v5.css">
 </head>
 <body>
-  <header id="topBar">
+  <header id="topBar" class="topbar">
     <div class="tb-left">
-      <button id="btnLeft" class="tb-icon" title="Menu gauche" aria-label="Menu gauche">≡</button>
+      <button id="btnLeft" class="tb-icon" type="button" aria-label="Ouvrir panneau gauche">≡</button>
     </div>
 
     <div class="tb-center">
-      <nav class="tb-nav" aria-label="Contrôles">
+      <nav class="tb-nav" aria-label="Contrôles principaux">
         <button id="modeToggle" class="tb-chip" type="button" aria-pressed="false">Clair</button>
         <button id="seasonCycle" class="tb-chip" type="button">Automne</button>
-        <button id="seriousToggle" class="tb-chip tb-chip-quiet" type="button">Sérieux</button>
-        <span class="tb-sep" aria-hidden="true">•</span>
-        <button id="focusBtn" class="tb-chip tb-chip-quiet" type="button">Focus</button>
-        <button id="countersBtn" class="tb-chip tb-chip-quiet" type="button">Compteurs</button>
+        <button id="seriousToggle" class="tb-chip tb-chip-quiet" type="button" aria-pressed="false">Sérieux</button>
+        <button id="focusBtn" class="tb-chip tb-chip-quiet" type="button" aria-pressed="false">Focus</button>
+        <button id="listToggleBtn" class="tb-chip tb-chip-quiet" type="button" aria-pressed="false">Liste</button>
+        <button id="setsToggleBtn" class="tb-chip tb-chip-quiet" type="button" aria-pressed="false">Sets</button>
       </nav>
     </div>
 
     <div class="tb-right">
-      <button id="btnRight" class="tb-icon" title="Panneau droit" aria-label="Panneau droit">▦</button>
+      <button id="btnRight" class="tb-icon" type="button" aria-label="Ouvrir panneau droit">▦</button>
     </div>
   </header>
 
-  <div id="panelBack" aria-hidden="true"></div>
+  <div id="panelBack" class="panel-back" aria-hidden="true"></div>
 
   <aside id="leftPanel" class="panel panel-left" aria-label="Panneau gauche">
     <div class="panel-top">
-      <div id="leftResizer" class="panelResizer left" title="Redimensionner"></div>
+      <div id="leftResizer" class="panel-resizer left" title="Redimensionner"></div>
       <div class="panel-title">Menu</div>
-      <button class="closeBtn" id="leftClose" aria-label="Fermer le panneau gauche">×</button>
+      <button id="leftClose" class="close-btn" type="button" aria-label="Fermer panneau gauche">×</button>
     </div>
 
-    <nav class="panel-tabs" aria-label="Onglets gauche">
-      <button class="tabBtn active" data-lefttab="inbox">Inbox</button>
-      <button class="tabBtn" data-lefttab="tasks">Tâches</button>
-      <button class="tabBtn" data-lefttab="kiffance">Kiffance</button>
-      <button class="tabBtn" data-lefttab="prefs">Préférences</button>
-      <button class="tabBtn" data-lefttab="export">Export</button>
+    <nav class="panel-tabs" aria-label="Onglets panneau gauche">
+      <button class="tab-btn active" data-lefttab="inbox" type="button">Inbox</button>
+      <button class="tab-btn" data-lefttab="tasks" type="button">Tâches</button>
+      <button class="tab-btn" data-lefttab="kiffance" type="button">Kiffance</button>
+      <button class="tab-btn" data-lefttab="prefs" type="button">Préférences</button>
+      <button class="tab-btn" data-lefttab="export" type="button">Export</button>
     </nav>
 
     <div class="panel-content">
-      <section class="tabPage show" id="left-inbox">
-        <p class="muted small">Une ligne = une tâche. Une ligne en MAJUSCULES = catégorie. “Titre - 3” ou “Titre 3” = 3 Éthorions.</p>
-        <textarea id="inboxText" class="area" rows="10" placeholder="ADMIN\nAppeler X - 2\nRépondre au mail Y 1\n\nMAISON\nLancer lessive - 1"></textarea>
-        <div class="row wrap">
-          <button id="inboxAdd" class="btn primary">Ajouter</button>
-          <button id="inboxClear" class="btn ghost">Effacer le champ</button>
+      <section id="left-inbox" class="tab-page show">
+        <p class="muted small">
+          Une ligne = une tâche. Une ligne en MAJUSCULES = catégorie.
+          “Titre - 3” ou “Titre 3” = 3 étorions.
+        </p>
+
+        <textarea
+          id="inboxText"
+          class="area"
+          rows="10"
+          placeholder="ADMIN
+Répondre à Anna - 2
+Rapport patient 3
+
+PERSO
+Ranger bureau - 1
+Batterie 2"></textarea>
+
+        <div class="row">
+          <button id="inboxAdd" class="btn primary" type="button">Ajouter</button>
+          <button id="inboxClear" class="btn ghost" type="button">Effacer le champ</button>
         </div>
+
         <div class="divider"></div>
-        <div class="row wrap compactStats">
-          <div class="statChip">Actives : <b id="statActive">0</b></div>
-          <div class="statChip">Finies : <b id="statDone">0</b></div>
-          <div class="statChip">Éthorions : <b id="statEto">0</b></div>
+
+        <div class="row wrap">
+          <div class="mini-stat">Actives : <b id="statActive">0</b></div>
+          <div class="mini-stat">Finies : <b id="statDone">0</b></div>
+          <div class="mini-stat">Étorions restants : <b id="statEtorions">0</b></div>
         </div>
       </section>
 
-      <section class="tabPage" id="left-tasks">
+      <section id="left-tasks" class="tab-page">
         <div class="row wrap">
-          <div>
-            <label class="muted small">Catégorie</label>
-            <select id="catFilter" class="select"></select>
-          </div>
-          <div>
-            <label class="muted small">Vue</label>
-            <select id="viewFilter" class="select">
-              <option value="active">Actives</option>
-              <option value="done">Finies</option>
-              <option value="all">Toutes</option>
-            </select>
-          </div>
-          <div>
-            <label class="muted small">Tri</label>
-            <select id="sortSel" class="select">
-              <option value="smart">Intelligent</option>
-              <option value="ordre">Ordre d'import</option>
-              <option value="alpha">Alphabétique</option>
-              <option value="cat">Catégorie</option>
-            </select>
-          </div>
+          <label class="muted small" for="catFilter">Catégorie</label>
+          <select id="catFilter" class="select"></select>
+
+          <label class="muted small" for="viewFilter">Vue</label>
+          <select id="viewFilter" class="select">
+            <option value="active">Actives</option>
+            <option value="done">Finies</option>
+            <option value="all">Toutes</option>
+          </select>
         </div>
-        <div class="list" id="taskList"></div>
+
+        <div class="row wrap">
+          <label class="muted small" for="sortFilter">Tri</label>
+          <select id="sortFilter" class="select">
+            <option value="roulette">Roulette</option>
+            <option value="ordre">Ordre d’import</option>
+            <option value="alpha">Alphabétique</option>
+            <option value="cat">Par catégorie</option>
+          </select>
+        </div>
+
+        <div id="taskList" class="list"></div>
       </section>
 
-      <section class="tabPage" id="left-kiffance">
-        <p class="muted small">Banque de récompenses courtes. Une petite dopamine disciplinée, pas une foire médiévale.</p>
+      <section id="left-kiffance" class="tab-page">
+        <p class="muted small">Petites récompenses ou pauses intelligentes.</p>
+
         <div class="row wrap">
-          <input id="kiffNew" class="input" placeholder="Ajouter une kiffance…" />
+          <input id="kiffNew" class="input" type="text" placeholder="Ajouter une kiffance…" />
           <button id="kiffAdd" class="btn primary" type="button">+</button>
         </div>
-        <div class="list" id="kiffList"></div>
+
+        <div class="row wrap">
+          <button id="kiffSuggest" class="btn ghost" type="button">Suggérer</button>
+          <button id="kiffToTask" class="btn ghost" type="button">Ajouter comme tâche</button>
+        </div>
+
+        <div id="kiffSuggestionBox" class="card-block muted">Aucune suggestion pour l’instant.</div>
+
+        <div id="kiffList" class="list"></div>
       </section>
 
-      <section class="tabPage" id="left-prefs">
+      <section id="left-prefs" class="tab-page">
         <div class="grid2">
           <div>
-            <label class="muted small">Mode</label>
+            <label class="muted small" for="modeSel">Mode</label>
             <select id="modeSel" class="select">
               <option value="clair">Clair</option>
               <option value="sombre">Sombre</option>
             </select>
           </div>
+
           <div>
-            <label class="muted small">Saison</label>
+            <label class="muted small" for="seasonSel">Saison</label>
             <select id="seasonSel" class="select">
               <option value="printemps">Printemps</option>
               <option value="ete">Été</option>
@@ -119,8 +147,9 @@
               <option value="noirblanc">Noir & blanc</option>
             </select>
           </div>
+
           <div>
-            <label class="muted small">Police</label>
+            <label class="muted small" for="fontSel">Police</label>
             <select id="fontSel" class="select">
               <option value="yomogi">Yomogi</option>
               <option value="zen">Zen Maru Gothic</option>
@@ -128,107 +157,142 @@
               <option value="kurenaido">Zen Kurenaido</option>
             </select>
           </div>
+
           <div>
-            <label class="muted small">Taille UI</label>
-            <input id="uiScale" type="range" min="14" max="18" step="1" />
+            <label class="muted small" for="uiScale">Taille UI</label>
+            <input id="uiScale" type="range" min="14" max="18" step="1">
           </div>
+
           <div>
-            <label class="muted small">Style progression</label>
-            <select id="progressStyleSel" class="select">
-              <option value="float">Flotte</option>
-              <option value="anchored">Ancrée</option>
-            </select>
-          </div>
-          <div>
-            <label class="muted small">Mode sérieux</label>
+            <label class="muted small" for="seriousSel">Mode sérieux</label>
             <select id="seriousSel" class="select">
-              <option value="false">Off</option>
-              <option value="true">On</option>
+              <option value="off">Off</option>
+              <option value="on">On</option>
             </select>
           </div>
+
           <div>
-            <label class="muted small">Fatigue (0–4)</label>
-            <input id="fatigueSel" class="input" type="number" min="0" max="4" step="1" />
+            <label class="muted small" for="keepListFocusSel">Liste visible en focus</label>
+            <select id="keepListFocusSel" class="select">
+              <option value="true">Oui</option>
+              <option value="false">Non</option>
+            </select>
           </div>
+
           <div>
-            <label class="muted small">Motivation (0–4)</label>
-            <input id="motivationSel" class="input" type="number" min="0" max="4" step="1" />
+            <label class="muted small" for="fatigueSel">Fatigue</label>
+            <input id="fatigueSel" type="range" min="0" max="4" step="1">
           </div>
-          <div class="span2">
-            <label class="muted small">Pomodoro (minutes)</label>
-            <input id="pomoQuick" class="input" type="number" min="5" max="90" step="1" />
+
+          <div>
+            <label class="muted small" for="motivationSel">Motivation</label>
+            <input id="motivationSel" type="range" min="0" max="4" step="1">
+          </div>
+
+          <div>
+            <label class="muted small" for="workMinSel">Pomodoro (min)</label>
+            <input id="workMinSel" type="number" class="input" min="5" max="90" step="1">
+          </div>
+
+          <div>
+            <label class="muted small" for="breakMinSel">Pause (min)</label>
+            <input id="breakMinSel" type="number" class="input" min="1" max="30" step="1">
           </div>
         </div>
+
         <div class="row wrap">
           <button id="prefsApply" class="btn primary" type="button">Appliquer</button>
           <button id="prefsReset" class="btn ghost" type="button">Reset prefs</button>
         </div>
       </section>
 
-      <section class="tabPage" id="left-export">
-        <p class="muted small">Export JSON ou rapport texte du jour.</p>
+      <section id="left-export" class="tab-page">
+        <p class="muted small">Export JSON complet + rapport du jour.</p>
+
         <div class="row wrap">
           <button id="exportBtn" class="btn ghost" type="button">Copier JSON</button>
-          <button id="exportDayBtn" class="btn ghost" type="button">Copier rapport du jour</button>
+          <button id="reportBtn" class="btn ghost" type="button">Copier rapport du jour</button>
           <button id="wipeBtn" class="btn danger" type="button">Reset total</button>
         </div>
-        <textarea id="exportOut" class="area" rows="10" readonly></textarea>
+
+        <textarea id="exportOut" class="area" rows="12" readonly></textarea>
       </section>
     </div>
   </aside>
 
   <main id="hub">
-    <div id="hub-inner">
+    <div id="hubInner">
       <h1 id="appTitle">ELIMINATOR</h1>
       <p id="subtitle" class="subtitle">Une quête après l’autre.</p>
 
       <section id="progressWrap" aria-label="Progression">
-        <div id="progressBar" class="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
-          <div id="progressFill"></div>
-          <div id="progressPctIn">100%</div>
+        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <div id="progressFill" class="progress-fill"></div>
+          <div id="progressPctIn" class="progress-pct">100%</div>
         </div>
       </section>
 
-      <section id="missionCard" class="missionCard" aria-label="Mission">
-        <div class="missionTopRow">
-          <div class="missionLine" id="missionLineLeft">Tâches en cours (0 finies · 0/0)</div>
-          <div class="missionRight">
-            <div class="pomoInline" aria-label="Pomodoro">
-              <span id="pomoTime" class="pomoTimeInline" title="Cliquer = play/pause">25:00</span>
-              <button id="pomoEdit" class="pomoEditInline" type="button" title="Paramètres pomodoro" aria-label="Paramètres pomodoro">✎</button>
+      <section id="missionCard" class="mission-card" aria-label="Mission">
+        <div class="mission-top-row">
+          <div class="mission-left">
+            <div class="mission-line" id="missionLineLeft">Tâches en cours (0 finies · 0/0)</div>
+            <div class="hud-pills">
+              <span id="pillTasks" class="hud-pill">0/0 tâches</span>
+              <span id="pillEto" class="hud-pill">0/0 étorions</span>
+              <span id="pillDone" class="hud-pill">0 faite</span>
+              <span id="pillMode" class="hud-pill">mode: normal</span>
+              <span id="pillFlow" class="hud-pill">flow: stable</span>
             </div>
-            <div id="statusSpot" class="statusSpot" aria-live="polite"></div>
+          </div>
+
+          <div class="mission-right">
+            <div class="pomo-inline" aria-label="Pomodoro">
+              <span id="pomoTime" class="pomo-time-inline" title="Cliquer = play/pause">25:00</span>
+              <button id="pomoEdit" class="pomo-edit-inline" type="button" title="Paramètres pomodoro" aria-label="Paramètres pomodoro">✎</button>
+            </div>
+            <div id="statusSpot" class="status-spot" aria-live="polite"></div>
           </div>
         </div>
 
-        <div class="missionTitle" id="taskTitle">Aucune tâche sélectionnée</div>
+        <div class="mission-title" id="taskTitle">Aucune tâche sélectionnée</div>
 
-        <div class="missionMeta muted" id="taskMetaDetails" hidden>
-          Catégorie : <span id="metaCat">—</span> · Éthorions : <span id="metaEt">—</span> · Estimé : <span id="metaMin">—</span>
+        <div class="mission-meta muted" id="taskMetaDetails" hidden>
+          Catégorie : <span id="metaCat">—</span> · Étorions : <span id="metaEt">—</span> · Temps courant : <span id="metaTimer">00:00</span>
         </div>
 
-        <div class="missionActionsRow">
-          <button id="undoBtn" class="actionPill" type="button" title="Retour arrière">↶ <span>Retour</span></button>
-          <button id="rouletteBtn" class="rouletteBtn" type="button" aria-label="Roulette">
-            <div class="rouletteWheel" id="rouletteWheel"><div class="rouletteCenterText">Roulette</div></div>
+        <div class="mission-actions-row">
+          <button id="undoBtn" class="action-pill" type="button" title="Retour arrière">
+            ↶ <span>Retour</span>
           </button>
-          <button id="bombBtn" class="actionPill bomb" type="button" title="Dégommer 1 Éthorion">💣 <span>Dégommer</span></button>
+
+          <button id="rouletteBtn" class="roulette-btn" type="button" aria-label="Roulette">
+            <div class="roulette-wheel" id="rouletteWheel">
+              <div class="roulette-center-text">Roulette</div>
+            </div>
+          </button>
+
+          <button id="bombBtn" class="action-pill bomb" type="button" title="Dégommer 1 étorion">
+            💣 <span>Dégommer</span>
+          </button>
         </div>
 
-        <div class="miniLinks" role="navigation" aria-label="Accès rapides">
-          <button class="miniLink" type="button" id="openNotes">Notes</button>
-          <button class="miniLink" type="button" id="openTyphonse">Typhonse</button>
-          <button class="miniLink" type="button" id="openKiffance">Kiffance</button>
-          <button class="miniLink" type="button" id="openStats">Stats</button>
-          <button class="miniLink" type="button" id="taskDoneBtn">Finir</button>
-          <button class="miniLink mutedLink" type="button" id="taskInfoBtn">Détails</button>
+        <div class="mini-links" role="navigation" aria-label="Accès rapides">
+          <button class="mini-link" type="button" id="openNotes">Notes</button>
+          <button class="mini-link" type="button" id="openTyphonse">Typhonse</button>
+          <button class="mini-link" type="button" id="openKiffance">Kiffance</button>
+          <button class="mini-link" type="button" id="openStats">Stats</button>
+          <button class="mini-link" type="button" id="taskInfoBtn">Détails</button>
+          <button class="mini-link" type="button" id="belowListToggleBtn">Liste en cours</button>
+          <button class="mini-link" type="button" id="doneTaskBtn">Terminer</button>
+          <button class="mini-link" type="button" id="editTaskBtn">Éditer</button>
         </div>
 
-        <section id="focusDock" class="focusDock" hidden>
-          <button class="dockBtn" id="focusSetsBtn">Sets</button>
-          <button class="dockBtn" id="focusHabitsBtn">Habitudes</button>
-          <button class="dockBtn" id="focusStatsBtn">Stats</button>
-          <button class="dockBtn" id="focusNotesBtn">Notes</button>
+        <section id="belowList" class="below-list" hidden>
+          <div class="below-head">
+            <div class="below-title">Liste en cours</div>
+            <button id="btnHideBelow" class="btn ghost tiny" type="button">Masquer</button>
+          </div>
+          <div id="belowTasks"></div>
         </section>
       </section>
     </div>
@@ -237,145 +301,192 @@
   <aside id="rightPanel" class="panel panel-right" aria-label="Panneau droit">
     <div class="panel-top">
       <div class="panel-title">Panneau</div>
-      <div id="rightResizer" class="panelResizer right" title="Redimensionner"></div>
-      <button class="closeBtn" id="rightClose" aria-label="Fermer le panneau droit">×</button>
+      <div id="rightResizer" class="panel-resizer right" title="Redimensionner"></div>
+      <button id="rightClose" class="close-btn" type="button" aria-label="Fermer panneau droit">×</button>
     </div>
 
-    <nav class="panel-tabs" aria-label="Onglets droit">
-      <button class="tabBtn active" data-righttab="sets">Sets</button>
-      <button class="tabBtn" data-righttab="habits">Habitudes</button>
-      <button class="tabBtn" data-righttab="mood">Mood</button>
-      <button class="tabBtn" data-righttab="calendar">Calendrier</button>
-      <button class="tabBtn" data-righttab="notes">Notes</button>
-      <button class="tabBtn" data-righttab="stats">Stats</button>
+    <nav class="panel-tabs" aria-label="Onglets panneau droit">
+      <button class="tab-btn active" data-righttab="sets" type="button">Sets</button>
+      <button class="tab-btn" data-righttab="habits" type="button">Habitudes</button>
+      <button class="tab-btn" data-righttab="mood" type="button">Flow</button>
+      <button class="tab-btn" data-righttab="calendar" type="button">Hist</button>
+      <button class="tab-btn" data-righttab="notes" type="button">Notes</button>
+      <button class="tab-btn" data-righttab="stats" type="button">Stats</button>
     </nav>
 
     <div class="panel-content">
-      <section class="tabPage show" id="right-sets">
-        <div class="sectionTitle">Sets</div>
-        <div id="setsPanelContent"></div>
-      </section>
-
-      <section class="tabPage" id="right-habits">
-        <div class="sectionTitle">Habitudes</div>
+      <section id="right-sets" class="tab-page show">
         <div class="row wrap">
-          <input id="habitName" class="input" placeholder="Nom de l'habitude" />
-          <input id="habitSlots" class="input" type="number" min="3" max="12" value="8" />
-          <button id="habitAdd" class="btn primary" type="button">Ajouter</button>
+          <div class="grow">
+            <label class="muted small" for="hospPatients">Hospitalier</label>
+            <input id="hospPatients" class="input" type="number" min="1" max="20">
+          </div>
+          <button id="hospResetToday" class="btn ghost" type="button">Reset</button>
         </div>
-        <div class="list" id="habitsPanelContent"></div>
+
+        <div class="row wrap">
+          <div class="grow">
+            <label class="muted small" for="consPatients">Consultation</label>
+            <input id="consPatients" class="input" type="number" min="1" max="30">
+          </div>
+          <button id="consResetToday" class="btn ghost" type="button">Reset</button>
+        </div>
+
+        <div id="setsContent" class="list"></div>
       </section>
 
-      <section class="tabPage" id="right-mood">
-        <div class="sectionTitle">Mood & flow</div>
-        <div class="grid2">
-          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="moodFatigue">0</div><div class="cardSub">Fatigue</div></div></div>
-          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="moodMotivation">0</div><div class="cardSub">Motivation</div></div></div>
-          <div class="cardRow span2"><div class="cardLeft"><div class="cardTitle" id="dopamineScore">100</div><div class="cardSub">Score dopaminergique</div></div></div>
+      <section id="right-habits" class="tab-page">
+        <div class="row wrap">
+          <input id="habitName" class="input" type="text" placeholder="Nom de l’habitude">
+          <input id="habitSlots" class="input narrow" type="number" min="3" max="12" value="8">
+          <button id="habitAddBtn" class="btn primary" type="button">Ajouter</button>
+        </div>
+        <div id="habitsContent" class="list"></div>
+      </section>
+
+      <section id="right-mood" class="tab-page">
+        <div class="card-block">
+          <div class="row wrap">
+            <div class="grow">
+              <label class="muted small" for="fatigueInline">Fatigue</label>
+              <input id="fatigueInline" type="range" min="0" max="4" step="1">
+            </div>
+            <div class="grow">
+              <label class="muted small" for="motivationInline">Motivation</label>
+              <input id="motivationInline" type="range" min="0" max="4" step="1">
+            </div>
+          </div>
+
+          <div class="row wrap">
+            <div class="grow">
+              <label class="muted small" for="celeChanceInline">Célébrations</label>
+              <input id="celeChanceInline" class="input" type="number" min="0" max="1" step="0.05">
+            </div>
+            <div class="grow">
+              <label class="muted small" for="tipsChanceInline">Conseils</label>
+              <input id="tipsChanceInline" class="input" type="number" min="0" max="1" step="0.05">
+            </div>
+          </div>
+
+          <div class="row wrap">
+            <button id="saveFlowBtn" class="btn primary" type="button">Sauver</button>
+            <button id="testTipBtn" class="btn ghost" type="button">Test conseil</button>
+            <button id="testCeleBtn" class="btn ghost" type="button">Test célébration</button>
+          </div>
         </div>
       </section>
 
-      <section class="tabPage" id="right-calendar">
-        <div class="sectionTitle">Calendrier</div>
-        <div id="calendarPanelContent" class="calendarGrid"></div>
+      <section id="right-calendar" class="tab-page">
+        <div id="historyContent" class="list"></div>
+        <div class="divider"></div>
+        <div id="calendarGrid" class="calendar-grid"></div>
       </section>
 
-      <section class="tabPage" id="right-notes">
-        <div class="sectionTitle">Aide-mémoire</div>
-        <label class="muted small">Notes rapides</label>
-        <textarea id="notesMirror" class="area" rows="8" placeholder="Miroir des notes principales"></textarea>
+      <section id="right-notes" class="tab-page">
+        <div class="card-block">
+          <label class="muted small" for="notesAreaPanel">Notes</label>
+          <textarea id="notesAreaPanel" class="area" rows="6" placeholder="Bloc-notes principal"></textarea>
+        </div>
+        <div class="card-block">
+          <label class="muted small" for="remindersAreaPanel">Rappels</label>
+          <textarea id="remindersAreaPanel" class="area" rows="5" placeholder="Rappels / aide-mémoire"></textarea>
+        </div>
       </section>
 
-      <section class="tabPage" id="right-stats">
-        <div class="sectionTitle">Stats</div>
-        <div id="rightStatsContent"></div>
+      <section id="right-stats" class="tab-page">
+        <div id="statsContentPanel" class="list"></div>
       </section>
     </div>
   </aside>
 
-  <div id="modalBack" class="modalBack" hidden></div>
+  <div id="modalBack" class="modal-back" hidden></div>
 
   <div id="pomoModal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Paramètres pomodoro">
-    <div class="modalHead">
-      <div class="modalTitle">Paramètres Pomodoro</div>
-      <button id="modalClose" class="modalClose" type="button" aria-label="Fermer">×</button>
-    </div>
-    <div class="modalBody">
-      <div class="grid2">
-        <div>
-          <label class="muted small">Pomodoro (min)</label>
-          <input id="pomoMinutes" class="input" type="number" min="5" max="90" step="1">
-        </div>
-        <div>
-          <label class="muted small">Pause (min)</label>
-          <input id="breakMinutes" class="input" type="number" min="1" max="30" step="1">
-        </div>
-        <div class="span2">
-          <label class="muted small">Auto-start après fin</label>
-          <select id="autoStartSel" class="select">
-            <option value="auto">Automatique</option>
-            <option value="manual">Manuel</option>
-          </select>
-        </div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title">Paramètres Pomodoro</div>
+        <button id="modalClose" class="modal-close" type="button" aria-label="Fermer">×</button>
       </div>
-      <div class="row wrap">
-        <button id="pomoApply" class="btn primary" type="button">Appliquer</button>
-        <button id="pomoReset" class="btn ghost" type="button">Reset timer</button>
-      </div>
-    </div>
-  </div>
 
-  <div id="overlayModal" class="modal modalOverlay" hidden role="dialog" aria-modal="true" aria-label="Fenêtre centrale">
-    <div class="modalHead">
-      <div class="modalTitle" id="overlayTitle">Fenêtre</div>
-      <button id="overlayClose" class="modalClose" type="button" aria-label="Fermer">×</button>
-    </div>
-    <div class="modalBody modalBodyScroll">
-      <section id="overlay-notes" class="overlayPage" hidden>
-        <label class="muted small">Notes</label>
-        <textarea id="notesArea" class="area" rows="10" placeholder="Écris ici. Le chaos n’a pas le clavier."></textarea>
-        <div class="divider"></div>
-        <label class="muted small">Rappels / aide-mémoire</label>
-        <textarea id="remindersArea" class="area" rows="6" placeholder="• Demain : …\n• À ne pas oublier : …"></textarea>
-      </section>
-
-      <section id="overlay-typhonse" class="overlayPage" hidden>
-        <p class="muted small">Typhonse = check-list rapide à petits crocs.</p>
-        <div class="row wrap">
-          <input id="typhonseInput" class="input" placeholder="Ajouter un item Typhonse…" />
-          <button id="typhonseAdd" class="btn primary" type="button">Ajouter</button>
-        </div>
-        <div class="list" id="typhonseList"></div>
-        <div class="divider"></div>
-        <button id="typhonseClearDone" class="btn ghost" type="button">Retirer les cochés</button>
-      </section>
-
-      <section id="overlay-kiffance" class="overlayPage" hidden>
-        <p class="muted small">Banque de kiffances et tirage rapide.</p>
-        <div class="row wrap">
-          <input id="kiffOverlayInput" class="input" placeholder="Ajouter une kiffance…" />
-          <button id="kiffOverlayAdd" class="btn primary" type="button">Ajouter</button>
-        </div>
-        <div class="list" id="kiffOverlayList"></div>
-        <div class="divider"></div>
-        <button id="kiffRoll" class="btn ghost" type="button">Tirer une kiffance</button>
-      </section>
-
-      <section id="overlay-stats" class="overlayPage" hidden>
-        <p class="muted small">Stats du jour, historique et petit thermomètre mental.</p>
+      <div class="modal-body">
         <div class="grid2">
-          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsActiveBig">0</div><div class="cardSub">Tâches actives</div></div></div>
-          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsDoneBig">0</div><div class="cardSub">Tâches finies</div></div></div>
-          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsEtoBig">0</div><div class="cardSub">Éthorions restants</div></div></div>
-          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsDopaBig">100</div><div class="cardSub">Score dopaminergique</div></div></div>
-          <div class="cardRow span2"><div class="cardLeft"><div class="cardTitle" id="statsPctBig">100%</div><div class="cardSub">Progression restante (barre)</div></div></div>
+          <div>
+            <label class="muted small" for="pomoMinutes">Pomodoro (min)</label>
+            <input id="pomoMinutes" class="input" type="number" min="5" max="90" step="1">
+          </div>
+          <div>
+            <label class="muted small" for="breakMinutes">Pause (min)</label>
+            <input id="breakMinutes" class="input" type="number" min="1" max="30" step="1">
+          </div>
+          <div class="span2">
+            <label class="muted small" for="autoStartSel">Auto-start</label>
+            <select id="autoStartSel" class="select">
+              <option value="auto">Automatique</option>
+              <option value="manual">Manuel</option>
+            </select>
+          </div>
         </div>
-        <div class="divider"></div>
-        <textarea id="statsDump" class="area" rows="10" readonly></textarea>
-      </section>
+
+        <div class="row wrap">
+          <button id="pomoApply" class="btn primary" type="button">Appliquer</button>
+          <button id="pomoReset" class="btn ghost" type="button">Reset timer</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script src="state.v5.js" defer></script>
+  <div id="overlayModal" class="modal modal-overlay" hidden role="dialog" aria-modal="true" aria-label="Fenêtre centrale">
+    <div class="modal-card large">
+      <div class="modal-head">
+        <div class="modal-title" id="overlayTitle">Fenêtre</div>
+        <button id="overlayClose" class="modal-close" type="button" aria-label="Fermer">×</button>
+      </div>
+
+      <div class="modal-body modal-body-scroll">
+        <section id="overlay-notes" class="overlay-page" hidden>
+          <label class="muted small" for="notesArea">Notes (auto-sauvegarde)</label>
+          <textarea id="notesArea" class="area" rows="10" placeholder="Écris ici."></textarea>
+
+          <div class="divider"></div>
+
+          <label class="muted small" for="remindersArea">Rappels / aide-mémoire</label>
+          <textarea id="remindersArea" class="area" rows="6" placeholder="• Demain : …"></textarea>
+
+          <div class="divider"></div>
+
+          <div class="muted small">Historique rapide</div>
+          <div id="notesEntriesList" class="list"></div>
+        </section>
+
+        <section id="overlay-typhonse" class="overlay-page" hidden>
+          <p class="muted small">Petites choses à ne pas perdre, à cocher ou à capturer.</p>
+
+          <div class="row wrap">
+            <input id="typhonseInput" class="input" type="text" placeholder="Ajouter un item Typhonse">
+            <button id="btnAddTyphonse" class="btn primary" type="button">Ajouter</button>
+          </div>
+
+          <div id="typhonseList" class="list"></div>
+        </section>
+
+        <section id="overlay-kiffance" class="overlay-page" hidden>
+          <p class="muted small">Une pause utile plutôt qu’un trou noir numérique.</p>
+          <div id="overlayKiffSuggestion" class="card-block">Aucune suggestion.</div>
+          <div class="row wrap">
+            <button id="overlayKiffRefresh" class="btn ghost" type="button">Nouvelle suggestion</button>
+            <button id="overlayKiffToTask" class="btn primary" type="button">Ajouter comme tâche</button>
+          </div>
+          <div class="divider"></div>
+          <div id="overlayKiffList" class="list"></div>
+        </section>
+
+        <section id="overlay-stats" class="overlay-page" hidden>
+          <div id="statsContent" class="list"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="state.v5.js"></script>
 </body>
 </html>
