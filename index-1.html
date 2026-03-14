@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Eliminator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Zen+Maru+Gothic:wght@400;500;700&family=Yomogi&family=Kiwi+Maru:wght@400;500;700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.v5.css">
+</head>
+<body>
+  <header id="topBar">
+    <div class="tb-left">
+      <button id="btnLeft" class="tb-icon" title="Menu gauche" aria-label="Menu gauche">≡</button>
+    </div>
+
+    <div class="tb-center">
+      <nav class="tb-nav" aria-label="Contrôles">
+        <button id="modeToggle" class="tb-chip" type="button" aria-pressed="false">Clair</button>
+        <button id="seasonCycle" class="tb-chip" type="button">Automne</button>
+        <button id="seriousToggle" class="tb-chip tb-chip-quiet" type="button">Sérieux</button>
+        <span class="tb-sep" aria-hidden="true">•</span>
+        <button id="focusBtn" class="tb-chip tb-chip-quiet" type="button">Focus</button>
+        <button id="countersBtn" class="tb-chip tb-chip-quiet" type="button">Compteurs</button>
+      </nav>
+    </div>
+
+    <div class="tb-right">
+      <button id="btnRight" class="tb-icon" title="Panneau droit" aria-label="Panneau droit">▦</button>
+    </div>
+  </header>
+
+  <div id="panelBack" aria-hidden="true"></div>
+
+  <aside id="leftPanel" class="panel panel-left" aria-label="Panneau gauche">
+    <div class="panel-top">
+      <div id="leftResizer" class="panelResizer left" title="Redimensionner"></div>
+      <div class="panel-title">Menu</div>
+      <button class="closeBtn" id="leftClose" aria-label="Fermer le panneau gauche">×</button>
+    </div>
+
+    <nav class="panel-tabs" aria-label="Onglets gauche">
+      <button class="tabBtn active" data-lefttab="inbox">Inbox</button>
+      <button class="tabBtn" data-lefttab="tasks">Tâches</button>
+      <button class="tabBtn" data-lefttab="kiffance">Kiffance</button>
+      <button class="tabBtn" data-lefttab="prefs">Préférences</button>
+      <button class="tabBtn" data-lefttab="export">Export</button>
+    </nav>
+
+    <div class="panel-content">
+      <section class="tabPage show" id="left-inbox">
+        <p class="muted small">Une ligne = une tâche. Une ligne en MAJUSCULES = catégorie. “Titre - 3” ou “Titre 3” = 3 Éthorions.</p>
+        <textarea id="inboxText" class="area" rows="10" placeholder="ADMIN\nAppeler X - 2\nRépondre au mail Y 1\n\nMAISON\nLancer lessive - 1"></textarea>
+        <div class="row wrap">
+          <button id="inboxAdd" class="btn primary">Ajouter</button>
+          <button id="inboxClear" class="btn ghost">Effacer le champ</button>
+        </div>
+        <div class="divider"></div>
+        <div class="row wrap compactStats">
+          <div class="statChip">Actives : <b id="statActive">0</b></div>
+          <div class="statChip">Finies : <b id="statDone">0</b></div>
+          <div class="statChip">Éthorions : <b id="statEto">0</b></div>
+        </div>
+      </section>
+
+      <section class="tabPage" id="left-tasks">
+        <div class="row wrap">
+          <div>
+            <label class="muted small">Catégorie</label>
+            <select id="catFilter" class="select"></select>
+          </div>
+          <div>
+            <label class="muted small">Vue</label>
+            <select id="viewFilter" class="select">
+              <option value="active">Actives</option>
+              <option value="done">Finies</option>
+              <option value="all">Toutes</option>
+            </select>
+          </div>
+          <div>
+            <label class="muted small">Tri</label>
+            <select id="sortSel" class="select">
+              <option value="smart">Intelligent</option>
+              <option value="ordre">Ordre d'import</option>
+              <option value="alpha">Alphabétique</option>
+              <option value="cat">Catégorie</option>
+            </select>
+          </div>
+        </div>
+        <div class="list" id="taskList"></div>
+      </section>
+
+      <section class="tabPage" id="left-kiffance">
+        <p class="muted small">Banque de récompenses courtes. Une petite dopamine disciplinée, pas une foire médiévale.</p>
+        <div class="row wrap">
+          <input id="kiffNew" class="input" placeholder="Ajouter une kiffance…" />
+          <button id="kiffAdd" class="btn primary" type="button">+</button>
+        </div>
+        <div class="list" id="kiffList"></div>
+      </section>
+
+      <section class="tabPage" id="left-prefs">
+        <div class="grid2">
+          <div>
+            <label class="muted small">Mode</label>
+            <select id="modeSel" class="select">
+              <option value="clair">Clair</option>
+              <option value="sombre">Sombre</option>
+            </select>
+          </div>
+          <div>
+            <label class="muted small">Saison</label>
+            <select id="seasonSel" class="select">
+              <option value="printemps">Printemps</option>
+              <option value="ete">Été</option>
+              <option value="automne">Automne</option>
+              <option value="hiver">Hiver</option>
+              <option value="noirblanc">Noir & blanc</option>
+            </select>
+          </div>
+          <div>
+            <label class="muted small">Police</label>
+            <select id="fontSel" class="select">
+              <option value="yomogi">Yomogi</option>
+              <option value="zen">Zen Maru Gothic</option>
+              <option value="kiwi">Kiwi Maru</option>
+              <option value="kurenaido">Zen Kurenaido</option>
+            </select>
+          </div>
+          <div>
+            <label class="muted small">Taille UI</label>
+            <input id="uiScale" type="range" min="14" max="18" step="1" />
+          </div>
+          <div>
+            <label class="muted small">Style progression</label>
+            <select id="progressStyleSel" class="select">
+              <option value="float">Flotte</option>
+              <option value="anchored">Ancrée</option>
+            </select>
+          </div>
+          <div>
+            <label class="muted small">Mode sérieux</label>
+            <select id="seriousSel" class="select">
+              <option value="false">Off</option>
+              <option value="true">On</option>
+            </select>
+          </div>
+          <div>
+            <label class="muted small">Fatigue (0–4)</label>
+            <input id="fatigueSel" class="input" type="number" min="0" max="4" step="1" />
+          </div>
+          <div>
+            <label class="muted small">Motivation (0–4)</label>
+            <input id="motivationSel" class="input" type="number" min="0" max="4" step="1" />
+          </div>
+          <div class="span2">
+            <label class="muted small">Pomodoro (minutes)</label>
+            <input id="pomoQuick" class="input" type="number" min="5" max="90" step="1" />
+          </div>
+        </div>
+        <div class="row wrap">
+          <button id="prefsApply" class="btn primary" type="button">Appliquer</button>
+          <button id="prefsReset" class="btn ghost" type="button">Reset prefs</button>
+        </div>
+      </section>
+
+      <section class="tabPage" id="left-export">
+        <p class="muted small">Export JSON ou rapport texte du jour.</p>
+        <div class="row wrap">
+          <button id="exportBtn" class="btn ghost" type="button">Copier JSON</button>
+          <button id="exportDayBtn" class="btn ghost" type="button">Copier rapport du jour</button>
+          <button id="wipeBtn" class="btn danger" type="button">Reset total</button>
+        </div>
+        <textarea id="exportOut" class="area" rows="10" readonly></textarea>
+      </section>
+    </div>
+  </aside>
+
+  <main id="hub">
+    <div id="hub-inner">
+      <h1 id="appTitle">ELIMINATOR</h1>
+      <p id="subtitle" class="subtitle">Une quête après l’autre.</p>
+
+      <section id="progressWrap" aria-label="Progression">
+        <div id="progressBar" class="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+          <div id="progressFill"></div>
+          <div id="progressPctIn">100%</div>
+        </div>
+      </section>
+
+      <section id="missionCard" class="missionCard" aria-label="Mission">
+        <div class="missionTopRow">
+          <div class="missionLine" id="missionLineLeft">Tâches en cours (0 finies · 0/0)</div>
+          <div class="missionRight">
+            <div class="pomoInline" aria-label="Pomodoro">
+              <span id="pomoTime" class="pomoTimeInline" title="Cliquer = play/pause">25:00</span>
+              <button id="pomoEdit" class="pomoEditInline" type="button" title="Paramètres pomodoro" aria-label="Paramètres pomodoro">✎</button>
+            </div>
+            <div id="statusSpot" class="statusSpot" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="missionTitle" id="taskTitle">Aucune tâche sélectionnée</div>
+
+        <div class="missionMeta muted" id="taskMetaDetails" hidden>
+          Catégorie : <span id="metaCat">—</span> · Éthorions : <span id="metaEt">—</span> · Estimé : <span id="metaMin">—</span>
+        </div>
+
+        <div class="missionActionsRow">
+          <button id="undoBtn" class="actionPill" type="button" title="Retour arrière">↶ <span>Retour</span></button>
+          <button id="rouletteBtn" class="rouletteBtn" type="button" aria-label="Roulette">
+            <div class="rouletteWheel" id="rouletteWheel"><div class="rouletteCenterText">Roulette</div></div>
+          </button>
+          <button id="bombBtn" class="actionPill bomb" type="button" title="Dégommer 1 Éthorion">💣 <span>Dégommer</span></button>
+        </div>
+
+        <div class="miniLinks" role="navigation" aria-label="Accès rapides">
+          <button class="miniLink" type="button" id="openNotes">Notes</button>
+          <button class="miniLink" type="button" id="openTyphonse">Typhonse</button>
+          <button class="miniLink" type="button" id="openKiffance">Kiffance</button>
+          <button class="miniLink" type="button" id="openStats">Stats</button>
+          <button class="miniLink" type="button" id="taskDoneBtn">Finir</button>
+          <button class="miniLink mutedLink" type="button" id="taskInfoBtn">Détails</button>
+        </div>
+
+        <section id="focusDock" class="focusDock" hidden>
+          <button class="dockBtn" id="focusSetsBtn">Sets</button>
+          <button class="dockBtn" id="focusHabitsBtn">Habitudes</button>
+          <button class="dockBtn" id="focusStatsBtn">Stats</button>
+          <button class="dockBtn" id="focusNotesBtn">Notes</button>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <aside id="rightPanel" class="panel panel-right" aria-label="Panneau droit">
+    <div class="panel-top">
+      <div class="panel-title">Panneau</div>
+      <div id="rightResizer" class="panelResizer right" title="Redimensionner"></div>
+      <button class="closeBtn" id="rightClose" aria-label="Fermer le panneau droit">×</button>
+    </div>
+
+    <nav class="panel-tabs" aria-label="Onglets droit">
+      <button class="tabBtn active" data-righttab="sets">Sets</button>
+      <button class="tabBtn" data-righttab="habits">Habitudes</button>
+      <button class="tabBtn" data-righttab="mood">Mood</button>
+      <button class="tabBtn" data-righttab="calendar">Calendrier</button>
+      <button class="tabBtn" data-righttab="notes">Notes</button>
+      <button class="tabBtn" data-righttab="stats">Stats</button>
+    </nav>
+
+    <div class="panel-content">
+      <section class="tabPage show" id="right-sets">
+        <div class="sectionTitle">Sets</div>
+        <div id="setsPanelContent"></div>
+      </section>
+
+      <section class="tabPage" id="right-habits">
+        <div class="sectionTitle">Habitudes</div>
+        <div class="row wrap">
+          <input id="habitName" class="input" placeholder="Nom de l'habitude" />
+          <input id="habitSlots" class="input" type="number" min="3" max="12" value="8" />
+          <button id="habitAdd" class="btn primary" type="button">Ajouter</button>
+        </div>
+        <div class="list" id="habitsPanelContent"></div>
+      </section>
+
+      <section class="tabPage" id="right-mood">
+        <div class="sectionTitle">Mood & flow</div>
+        <div class="grid2">
+          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="moodFatigue">0</div><div class="cardSub">Fatigue</div></div></div>
+          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="moodMotivation">0</div><div class="cardSub">Motivation</div></div></div>
+          <div class="cardRow span2"><div class="cardLeft"><div class="cardTitle" id="dopamineScore">100</div><div class="cardSub">Score dopaminergique</div></div></div>
+        </div>
+      </section>
+
+      <section class="tabPage" id="right-calendar">
+        <div class="sectionTitle">Calendrier</div>
+        <div id="calendarPanelContent" class="calendarGrid"></div>
+      </section>
+
+      <section class="tabPage" id="right-notes">
+        <div class="sectionTitle">Aide-mémoire</div>
+        <label class="muted small">Notes rapides</label>
+        <textarea id="notesMirror" class="area" rows="8" placeholder="Miroir des notes principales"></textarea>
+      </section>
+
+      <section class="tabPage" id="right-stats">
+        <div class="sectionTitle">Stats</div>
+        <div id="rightStatsContent"></div>
+      </section>
+    </div>
+  </aside>
+
+  <div id="modalBack" class="modalBack" hidden></div>
+
+  <div id="pomoModal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Paramètres pomodoro">
+    <div class="modalHead">
+      <div class="modalTitle">Paramètres Pomodoro</div>
+      <button id="modalClose" class="modalClose" type="button" aria-label="Fermer">×</button>
+    </div>
+    <div class="modalBody">
+      <div class="grid2">
+        <div>
+          <label class="muted small">Pomodoro (min)</label>
+          <input id="pomoMinutes" class="input" type="number" min="5" max="90" step="1">
+        </div>
+        <div>
+          <label class="muted small">Pause (min)</label>
+          <input id="breakMinutes" class="input" type="number" min="1" max="30" step="1">
+        </div>
+        <div class="span2">
+          <label class="muted small">Auto-start après fin</label>
+          <select id="autoStartSel" class="select">
+            <option value="auto">Automatique</option>
+            <option value="manual">Manuel</option>
+          </select>
+        </div>
+      </div>
+      <div class="row wrap">
+        <button id="pomoApply" class="btn primary" type="button">Appliquer</button>
+        <button id="pomoReset" class="btn ghost" type="button">Reset timer</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="overlayModal" class="modal modalOverlay" hidden role="dialog" aria-modal="true" aria-label="Fenêtre centrale">
+    <div class="modalHead">
+      <div class="modalTitle" id="overlayTitle">Fenêtre</div>
+      <button id="overlayClose" class="modalClose" type="button" aria-label="Fermer">×</button>
+    </div>
+    <div class="modalBody modalBodyScroll">
+      <section id="overlay-notes" class="overlayPage" hidden>
+        <label class="muted small">Notes</label>
+        <textarea id="notesArea" class="area" rows="10" placeholder="Écris ici. Le chaos n’a pas le clavier."></textarea>
+        <div class="divider"></div>
+        <label class="muted small">Rappels / aide-mémoire</label>
+        <textarea id="remindersArea" class="area" rows="6" placeholder="• Demain : …\n• À ne pas oublier : …"></textarea>
+      </section>
+
+      <section id="overlay-typhonse" class="overlayPage" hidden>
+        <p class="muted small">Typhonse = check-list rapide à petits crocs.</p>
+        <div class="row wrap">
+          <input id="typhonseInput" class="input" placeholder="Ajouter un item Typhonse…" />
+          <button id="typhonseAdd" class="btn primary" type="button">Ajouter</button>
+        </div>
+        <div class="list" id="typhonseList"></div>
+        <div class="divider"></div>
+        <button id="typhonseClearDone" class="btn ghost" type="button">Retirer les cochés</button>
+      </section>
+
+      <section id="overlay-kiffance" class="overlayPage" hidden>
+        <p class="muted small">Banque de kiffances et tirage rapide.</p>
+        <div class="row wrap">
+          <input id="kiffOverlayInput" class="input" placeholder="Ajouter une kiffance…" />
+          <button id="kiffOverlayAdd" class="btn primary" type="button">Ajouter</button>
+        </div>
+        <div class="list" id="kiffOverlayList"></div>
+        <div class="divider"></div>
+        <button id="kiffRoll" class="btn ghost" type="button">Tirer une kiffance</button>
+      </section>
+
+      <section id="overlay-stats" class="overlayPage" hidden>
+        <p class="muted small">Stats du jour, historique et petit thermomètre mental.</p>
+        <div class="grid2">
+          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsActiveBig">0</div><div class="cardSub">Tâches actives</div></div></div>
+          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsDoneBig">0</div><div class="cardSub">Tâches finies</div></div></div>
+          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsEtoBig">0</div><div class="cardSub">Éthorions restants</div></div></div>
+          <div class="cardRow"><div class="cardLeft"><div class="cardTitle" id="statsDopaBig">100</div><div class="cardSub">Score dopaminergique</div></div></div>
+          <div class="cardRow span2"><div class="cardLeft"><div class="cardTitle" id="statsPctBig">100%</div><div class="cardSub">Progression restante (barre)</div></div></div>
+        </div>
+        <div class="divider"></div>
+        <textarea id="statsDump" class="area" rows="10" readonly></textarea>
+      </section>
+    </div>
+  </div>
+
+  <script src="state.v5.js" defer></script>
+</body>
+</html>
